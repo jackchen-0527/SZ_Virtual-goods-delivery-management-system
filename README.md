@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -57,3 +58,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# SZ_Virtual-goods-delivery-management-system
+A virtual goods delivery management system designed to bypass e-commerce platform restrictions and catalog limitations. It provides fully automated delivery, prevents link theft or malicious ordering, and helps merchants break free from platform constraints to drive private domain traffic and maximize delivery profits.
+>>>>>>> d542a599082d6d424be47d43f232131355c8d3b6
