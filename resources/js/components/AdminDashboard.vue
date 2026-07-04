@@ -31,7 +31,6 @@
       </el-menu>
     </el-col>
 
-    <!-- 👉 右侧：根据点击的菜单标识 (Slug) 切换对应的视窗 -->
     <el-col :span="20" style="padding: 20px; overflow-y: auto; height: 100%;">
       <div
         style="background: #fff; padding: 15px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,21,41,.08); display: flex; align-items: center; justify-content: space-between;">
@@ -40,7 +39,6 @@
         </span>
       </div>
 
-      <!-- ================= 视窗 1: 【系统菜单管理】（用硬编码锁死作为基准盘） ================= -->
       <div v-if="activeMenuSlug === 'menu_manager'">
         <el-row :gutter="20">
           <!-- 录入卡片 -->
@@ -91,8 +89,7 @@
         </el-row>
       </div>
 
-      <!-- ================= 视窗 2: 【其他由数据库动态生成出来的业务盘】 ================= -->
-      <div v-if="activeMenuSlug === 'ship_manager'">
+      <div v-if="activeMenuSlug === 'shipment_manager'">
         <ShipmentManager />
       </div>
       <div v-if="activeMenuSlug === 'products_manager'">
