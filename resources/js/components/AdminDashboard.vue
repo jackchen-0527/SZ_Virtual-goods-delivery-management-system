@@ -89,11 +89,19 @@
         </el-row>
       </div>
 
+      <!-- 发货管理 -->
       <div v-if="activeMenuSlug === 'shipment_manager'">
         <ShipmentManager />
       </div>
+
+      <!-- 产品管理 -->
       <div v-if="activeMenuSlug === 'products_manager'">
         <ProductsManager />
+      </div>
+
+      <!-- 库存卡密管理 -->
+      <div v-if="activeMenuSlug === 'stock_accesskey_manager'">
+        <StockAccessKey />
       </div>
 
     </el-col>
@@ -115,6 +123,7 @@ import axios from 'axios'
 import { ref, computed, onMounted } from 'vue'
 import ShipmentManager from '@/components/ShipmentManager.vue'
 import ProductsManager from '@/components/ProductsManager.vue'
+import StockAccessKey from './StockAccessKey.vue'
 const menuList = ref([])
 
 const activeMenuSlug = ref('menu_manager') // 默认死锁在菜单管理

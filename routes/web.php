@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShipmentController;
+use App\Http\Controllers\Admin\StockAccessKeyController;
 use App\Http\Controllers\User\DownloadController;
 use App\Http\Controllers\APi\MenuController;
 
@@ -32,4 +33,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     //发货管理
     Route::get('/shipment', [ShipmentController::class, 'index'])->name('shipment.index');
     Route::post('/shipment/generate', [ShipmentController::class, 'generate'])->name('shipment.generate');
+    // 库存卡密管理
+    Route::get('/stock_access_key', [StockAccessKeyController::class, 'index'])->name('stock_access_key.index');
+    Route::get('/stock_access_key/list', [ProductController::class, 'list'])->name('stock_access_key.list');
 });
