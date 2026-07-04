@@ -29,6 +29,13 @@
             </el-form-item>
         </el-form>
         <!-- 操作按钮区 -->
+        <div>
+            <el-button type="primary" @click="dialogFormVisible = true">
+                添加库存卡密数据<el-icon class="el-icon--right">
+                    <Upload />
+                </el-icon>
+            </el-button>
+        </div>
         <!-- 列表 -->
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="id" label="ID" />
@@ -47,49 +54,43 @@
         </el-table>
         <!-- 分页 -->
         <el-pagination background layout="prev, pager, next" :page-size="pageSize" :total="totalUsers"
-            @current-change="getProductList" />
+            @current-change="getStockAccessKeyList" />
 
 
-        <!-- 添加产品弹出框 -->
-        <el-dialog v-model="dialogFormVisible" title="添加产品" width="500">
+        <!-- 添加库存卡密数据 弹出框 -->
+        <el-dialog v-model="dialogFormVisible" title="添加库存卡密数据" width="500">
             <el-form :model="form">
-                <el-form-item label="产品名称" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off" placeholder="请输入产品名称" />
+                <el-form-item label="生成数量" :label-width="formLabelWidth">
+                    <el-input v-model="form.decompress_password" autocomplete="off" placeholder="请输入产品需要生成库存卡密的数量" />
                 </el-form-item>
-                <el-form-item label="产品路径" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择产品保存路径">
-                        <el-option label="本地服务器对应路径" value="1" />
-                        <el-option label="阿里云OSS" value="2" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="产品版本" :label-width="formLabelWidth">
-                    <el-select v-model="form.version" placeholder="请选择产品版本">
+                <el-form-item label="选择目标产品" :label-width="formLabelWidth">
+                    <el-select v-model="form.version" placeholder="选择目标产品">
                         <el-option label="v1.0" value="v1.0" />
                         <el-option label="v2.0" value="v2.0" />
                         <el-option label="v3.0" value="v3.0" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="产品类型" :label-width="formLabelWidth">
-                    <el-select v-model="form.type" placeholder="请选择产品类型">
-                        <el-option label="exe" value="1" />
-                        <el-option label="web" value="2" />
-                        <el-option label="script" value="3" />
+                <el-form-item label="选择生成的密钥位数" :label-width="formLabelWidth">
+                    <el-select v-model="form.type" placeholder="选择生成的密钥位数">
+                        <el-option label="16位" value="16" />
+                        <el-option label="32位" value="32" />
+                        <el-option label="64位" value="64" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="解压密码" :label-width="formLabelWidth">
-                    <el-input v-model="form.decompress_password" autocomplete="off" placeholder="请设置一个解压解压密码" />
+
+                <el-form-item label="选择任务紧急程度" :label-width="formLabelWidth">
+                    <el-select v-model="form.type" placeholder="选择任务紧急程度">
+                        <el-option label="普通" value="normal" />
+                        <el-option label="中等" value="medium" />
+                        <el-option label="紧急" value="urgent" />
+                    </el-select>
                 </el-form-item>
-                <el-upload class="upload-demo" drag :auto-upload="false" :on-change="handleChange" :limit="1" multiple>
-                    <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-                    <div class="el-upload__text">
-                        选择或拖曳文件 <em>上传</em>
-                    </div>
-                    <template #tip>
-                        <div class="el-upload__tip">
-                            jpg/png 文件大小需低于500kb
-                        </div>
-                    </template>
-                </el-upload>
+                <el-form-item label="选择处理方式" :label-width="formLabelWidth">
+                    <el-select v-model="form.type" placeholder="选择处理方式">
+                        <el-option label="自动任务" value="1" />
+                        <el-option label="人工处理" value="2" />
+                    </el-select>
+                </el-form-item>
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
@@ -116,7 +117,7 @@ const formLabelWidth = '140px'
 
 //页面初始化
 onMounted(() => {
-    getProductList()
+    getStockAccessKeyList()
 })
 
 
@@ -147,7 +148,7 @@ const onSubmit = async () => {
 }
 
 
-//获取产品列表
+//获取库存卡密数据列表
 const isSearching = ref(false)
 const tableData = ref([])
 const page = reactive({
@@ -155,9 +156,9 @@ const page = reactive({
     pageSize: 10,
     total: 0,
 })
-const getProductList = async () => {
+const getStockAccessKeyList = async () => {
     try {
-        const response = await axios.get(`/stock_access_key/list`, { params: page })
+        const response = await axios.get(`/admin/stock_access_key/list`, { params: page })
         if (response.status === 200 && response.data.status === 200) {
             tableData.value = response.data.data
             page.total = response.data.total
@@ -172,15 +173,16 @@ const getProductList = async () => {
 }
 
 
-//添加产品
+//添加库存卡密数据
 const dialogFormVisible = ref(false)
 const fileRaw = ref(null)
 const form = reactive({
-    name: '',
-    region: '',
-    version: '',
-    type: '',
-    decompress_password: '',
+    product_id: 0,
+    access_key: '',
+    status: 0,
+    used_from_platform_name: '',
+    used_from_platform_order_id: '',
+    used_ip: '',
 })
 
 const handleChange = (uploadFile) => {
@@ -205,7 +207,7 @@ const submitForm = async () => {
             ElMessage.success('提交成功')
             dialogFormVisible.value = false
             fileRaw.value = null
-            getProductList()
+            getStockAccessKeyList()
         } else {
             ElMessage.error(response.data.message || '提交失败')
         }

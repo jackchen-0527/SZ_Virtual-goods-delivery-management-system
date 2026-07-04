@@ -35,5 +35,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/shipment/generate', [ShipmentController::class, 'generate'])->name('shipment.generate');
     // 库存卡密管理
     Route::get('/stock_access_key', [StockAccessKeyController::class, 'index'])->name('stock_access_key.index');
-    Route::get('/stock_access_key/list', [ProductController::class, 'list'])->name('stock_access_key.list');
+    Route::get('/stock_access_key/list', [StockAccessKeyController::class, 'list'])->name('stock_access_key.list');
+    Route::post('/stock_access_key/add', [StockAccessKeyController::class, 'add'])->name('stock_access_key.add');
 });

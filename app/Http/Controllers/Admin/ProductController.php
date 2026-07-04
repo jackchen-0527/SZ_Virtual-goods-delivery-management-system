@@ -18,8 +18,8 @@ class ProductController extends Controller
     // 产品列表
     public function list(Request $request)
     {
-        $currentPage = $request->get('currentPage', 1);
-        $pageSize = $request->get('pageSize', 10);
+        $currentPage = $request->input('currentPage', 1);
+        $pageSize = $request->input('pageSize', 10);
         $paginator = Product::paginate($pageSize);
         if ($paginator->isEmpty()) {
             return response()->json([
