@@ -15,11 +15,11 @@ return new class extends Migration {
 
             $table->string('name', 150)->comment('需求名称');
 
-            $table->unsignedTinyInteger('type')->default(1)->comment('需求类型(1:新需求,2:Bug修复,3:优化建议');
+            $table->unsignedTinyInteger('type')->default(1)->comment('需求类型(1:技术型需求,2:销售型需求,3:管理型需求)');
 
             $table->unsignedTinyInteger('level')->default(1)->comment('需求紧急程度(1:低, 2:中, 3:高, 4:致命)');
 
-            $table->unsignedTinyInteger('status')->default(0)->comment('需求状态(0:待评审/未开始, 1:开发中, 2:待测试, 3:已上线, 4:已拒绝)');
+            $table->unsignedTinyInteger('status')->default(0)->comment('需求状态(0:未开始, 1:开发中, 2:待测试, 3:已完成, 4:已拒绝)');
 
             $table->string('sponsor', 50)->comment('需求发起人');
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DeveloperTaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RequireIssuesReportController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\StockAccessKeyController;
 use App\Http\Controllers\User\DownloadController;
 use App\Http\Controllers\APi\MenuController;
-use App\Http\Controllers\DeveloperTaskController;
 
 Route::get('/', function () {
     return view('welcome');

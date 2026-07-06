@@ -55,7 +55,7 @@
         </el-table>
         <!-- 分页 -->
         <el-pagination background layout="prev, pager, next" :page-size="pageSize" :total="totalUsers"
-            @current-change="getRequireTaskList" />
+            @current-change="getDeveloperRequireTaskList" />
 
 
         <!-- 添加需求任务 弹出框 -->
@@ -122,11 +122,11 @@ const formLabelWidth = '140px'
 
 //页面初始化
 onMounted(() => {
-    getRequireTaskList()
+    getDeveloperRequireTaskList()
 })
 
 
-//搜索需求任务
+//搜索技术需求任务
 const formsearch = reactive({
     product_name: '',
     type: '',
@@ -153,7 +153,7 @@ const onSubmit = async () => {
 }
 
 
-//获取需求任务列表
+//获取技术需求任务列表
 const isSearching = ref(false)
 const tableData = ref([])
 const page = reactive({
@@ -161,15 +161,15 @@ const page = reactive({
     pageSize: 10,
     total: 0,
 })
-const getRequireTaskList = async () => {
+const getDeveloperRequireTaskList = async () => {
     try {
-        const response = await axios.get(`/admin/require_issues_report/list`, { params: page })
+        const response = await axios.get(`/admin/developer_task/list`, { params: page })
         if (response.status === 200 && response.data.status === 200) {
             tableData.value = response.data.data
             page.total = response.data.total
-            ElMessage.success('获取库存卡密列表成功')
+            ElMessage.success('获取技术需求任务列表成功')
         } else {
-            ElMessage.error('获取库存卡密列表失败')
+            ElMessage.error('获取技术需求任务列表失败')
         }
     } catch (error) {
         console.error('获取列表出错:', error)
@@ -214,7 +214,7 @@ const submitForm = async () => {
             ElMessage.success('提交成功')
             dialogFormVisible.value = false
             fileRaw.value = null
-            getRequireTaskList()
+            getDeveloperRequireTaskList()
         } else {
             ElMessage.error(response.data.message || '提交失败')
         }

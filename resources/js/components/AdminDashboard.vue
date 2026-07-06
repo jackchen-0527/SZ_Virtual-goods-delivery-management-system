@@ -111,12 +111,12 @@
 
       <!-- 开发者任务列表 -->
       <div v-if="activeMenuSlug === 'developer_task_list'">
-        <RequireIssuesReport />
+        <DeveloperTask />
       </div>
 
       <!-- 销售员任务列表 -->
       <div v-if="activeMenuSlug === 'salesperson_task_list'">
-        <RequireIssuesReport />
+        <SalepersonTasks />
       </div>
     </el-col>
 
@@ -139,6 +139,8 @@ import ShipmentManager from '@/components/ShipmentManager.vue'
 import ProductsManager from '@/components/ProductsManager.vue'
 import StockAccessKey from './StockAccessKey.vue'
 import RequireIssuesReport from './RequireIssuesReport.vue'
+import DeveloperTask from './DeveloperTask.vue'
+import SalepersonTasks from './SalepersonTasks.vue'
 const menuList = ref([])
 
 const activeMenuSlug = ref('menu_manager') // 默认死锁在菜单管理

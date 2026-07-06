@@ -39,11 +39,11 @@
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="id" label="ID" />
             <el-table-column prop="name" label="需求名称" />
-            <el-table-column prop="level" label="需求类型" />
-            <el-table-column prop="status" label="需求紧急程度" />
-            <el-table-column prop="sponsor" label="需求状态" />
-            <el-table-column prop="assigned_to_user_id" label="需求发起人" />
-            <el-table-column prop="handler_user_id" label="当前指派的处理人" />
+            <el-table-column prop="type" label="需求类型" />
+            <el-table-column prop="level" label="需求紧急程度" />
+            <el-table-column prop="status" label="需求状态" />
+            <el-table-column prop="sponsor" label="需求发起人" />
+            <el-table-column prop="assigned_to_user_id" label="当前指派的处理人" />
             <el-table-column prop="resolved_at" label="解决时间" />
             <el-table-column prop="description" label="需求具体说明" />
             <el-table-column prop="attachments" label="附件/报错截图" />
@@ -167,9 +167,9 @@ const getRequireTaskList = async () => {
         if (response.status === 200 && response.data.status === 200) {
             tableData.value = response.data.data
             page.total = response.data.total
-            ElMessage.success('获取库存卡密列表成功')
+            ElMessage.success('获取需求任务列表成功')
         } else {
-            ElMessage.error('获取库存卡密列表失败')
+            ElMessage.error('获取需求任务列表失败')
         }
     } catch (error) {
         console.error('获取列表出错:', error)
