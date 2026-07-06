@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RequireIssuesReportController;
+use App\Http\Controllers\Admin\SalepersonTasksController;
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\StockAccessKeyController;
 use App\Http\Controllers\User\DownloadController;
 use App\Http\Controllers\APi\MenuController;
+use App\Http\Controllers\DeveloperTaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,4 +40,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/stock_access_key', [StockAccessKeyController::class, 'index'])->name('stock_access_key.index');
     Route::get('/stock_access_key/list', [StockAccessKeyController::class, 'list'])->name('stock_access_key.list');
     Route::post('/stock_access_key/add', [StockAccessKeyController::class, 'add'])->name('stock_access_key.add');
+
+    // 需求与问题上报
+    Route::get('/require_issues_report', [RequireIssuesReportController::class, 'index'])->name('require_issues_report.index');
+    Route::get('/require_issues_report/list', [RequireIssuesReportController::class, 'list'])->name('require_issues_report.list');
+    Route::post('/require_issues_report/add', [RequireIssuesReportController::class, 'add'])->name('require_issues_report.add');
+    Route::post('/require_issues_report/search', [RequireIssuesReportController::class, 'search'])->name('require_issues_report.search');
+
+    // 开发者任务列表
+    Route::get('/developer_task', [DeveloperTaskController::class, 'index'])->name('developer_task.index');
+    Route::get('/developer_task/list', [DeveloperTaskController::class, 'list'])->name('developer_task.list');
+    // 销售员任务列表
+    Route::get('/sale_person_tasks', [SalepersonTasksController::class, 'index'])->name('sale_person_tasks.index');
+    Route::get('/sale_person_tasks/list', [SalepersonTasksController::class, 'list'])->name('sale_person_tasks.list');
 });

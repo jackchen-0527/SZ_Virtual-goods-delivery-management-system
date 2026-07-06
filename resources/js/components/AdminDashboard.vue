@@ -35,7 +35,7 @@
       <div
         style="background: #fff; padding: 15px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,21,41,.08); display: flex; align-items: center; justify-content: space-between;">
         <span style="font-weight: bold; font-size: 16px; color: #303133;">
-          ⚡ 当前激活视窗：{{ currentMenuName }}
+          当前位置：{{ currentMenuName }}
         </span>
       </div>
 
@@ -43,10 +43,10 @@
         <el-row :gutter="20">
           <!-- 录入卡片 -->
           <el-col :span="8">
-            <el-card shadow="hover" header="🚀 提交新菜单项到数据库">
+            <el-card shadow="hover" header="新增菜单项">
               <el-form label-position="top">
-                <el-form-item label="菜单显示名称">
-                  <el-input v-model="form.name" placeholder="如：货品仓库大盘" />
+                <el-form-item label="菜单名称">
+                  <el-input v-model="form.name" placeholder="如:产品管理" />
                 </el-form-item>
                 <el-form-item label="选用图标">
                   <el-select v-model="form.icon" placeholder="请选择图标" style="width: 100%;">
@@ -55,12 +55,12 @@
                     <el-option label="设置 (Setting)" value="Setting" />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="选择上级">
+                <el-form-item label="选择上级,如果没有则不选">
                   <el-select v-model="form.parent_id" placeholder="请选择上级" style="width: 100%;">
                     <el-option v-for="menu in menuList" :key="menu.id" :label=menu.name :value=menu.id />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="前端唯一功能标识 (Slug)">
+                <el-form-item label="菜单标识">
                   <el-input v-model="form.slug" placeholder="输入英文，如：product_panel" />
                 </el-form-item>
                 <el-button type="primary" style="width: 100%;" :loading="submitLoading"
@@ -71,7 +71,7 @@
 
           <!-- 数据明细表 -->
           <el-col :span="16">
-            <el-card shadow="hover" header="📋 当前 MySQL 数据库中的活菜单清单">
+            <el-card shadow="hover" header="菜单项列表">
               <el-table :data="menuList" style="width: 100%" border stripe v-loading="tableLoading">
                 <el-table-column prop="id" label="ID" width="120" align="center" />
                 <el-table-column prop="name" label="菜单名称" />
@@ -104,6 +104,20 @@
         <StockAccessKey />
       </div>
 
+      <!-- 需求问题与上报 -->
+      <div v-if="activeMenuSlug === 'require_issues_resport'">
+        <RequireIssuesReport />
+      </div>
+
+      <!-- 开发者任务列表 -->
+      <div v-if="activeMenuSlug === 'developer_task_list'">
+        <RequireIssuesReport />
+      </div>
+
+      <!-- 销售员任务列表 -->
+      <div v-if="activeMenuSlug === 'salesperson_task_list'">
+        <RequireIssuesReport />
+      </div>
     </el-col>
 
   </el-row>
@@ -124,6 +138,7 @@ import { ref, computed, onMounted } from 'vue'
 import ShipmentManager from '@/components/ShipmentManager.vue'
 import ProductsManager from '@/components/ProductsManager.vue'
 import StockAccessKey from './StockAccessKey.vue'
+import RequireIssuesReport from './RequireIssuesReport.vue'
 const menuList = ref([])
 
 const activeMenuSlug = ref('menu_manager') // 默认死锁在菜单管理

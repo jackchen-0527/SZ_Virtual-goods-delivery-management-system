@@ -162,9 +162,9 @@ const getStockAccessKeyList = async () => {
         if (response.status === 200 && response.data.status === 200) {
             tableData.value = response.data.data
             page.total = response.data.total
-            ElMessage.success('获取产品列表成功')
+            ElMessage.success('获取库存卡密列表成功')
         } else {
-            ElMessage.error('获取产品列表失败')
+            ElMessage.error('获取库存卡密列表失败')
         }
     } catch (error) {
         console.error('获取列表出错:', error)
