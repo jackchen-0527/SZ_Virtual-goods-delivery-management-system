@@ -117,6 +117,11 @@
       <!-- 销售员任务列表 -->
       <div v-if="activeMenuSlug === 'salesperson_task_list'">
         <SalepersonTasks />
+
+        <!-- 异步队列监控 -->
+        <div v-if="activeMenuSlug === 'async_queue_monitoring'">
+
+        </div>
       </div>
     </el-col>
 

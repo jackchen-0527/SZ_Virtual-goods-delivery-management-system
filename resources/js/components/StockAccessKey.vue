@@ -61,17 +61,17 @@
         <el-dialog v-model="dialogFormVisible" title="添加库存卡密数据" width="500">
             <el-form :model="form">
                 <el-form-item label="生成数量" :label-width="formLabelWidth">
-                    <el-input v-model="form.decompress_password" autocomplete="off" placeholder="请输入产品需要生成库存卡密的数量" />
+                    <el-input v-model="form.access_key_num" autocomplete="off" placeholder="请输入产品需要生成库存卡密的数量" />
                 </el-form-item>
                 <el-form-item label="选择目标产品" :label-width="formLabelWidth">
-                    <el-select v-model="form.version" placeholder="选择目标产品">
-                        <el-option label="v1.0" value="v1.0" />
+                    <el-select v-model="form.target_product" placeholder="选择目标产品">
+                        <el-option label="1" value="1" />
                         <el-option label="v2.0" value="v2.0" />
                         <el-option label="v3.0" value="v3.0" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="选择生成的密钥位数" :label-width="formLabelWidth">
-                    <el-select v-model="form.type" placeholder="选择生成的密钥位数">
+                    <el-select v-model="form.access_key_bit" placeholder="选择生成的密钥位数">
                         <el-option label="16位" value="16" />
                         <el-option label="32位" value="32" />
                         <el-option label="64位" value="64" />
@@ -79,14 +79,14 @@
                 </el-form-item>
 
                 <el-form-item label="选择任务紧急程度" :label-width="formLabelWidth">
-                    <el-select v-model="form.type" placeholder="选择任务紧急程度">
+                    <el-select v-model="form.task_level" placeholder="选择任务紧急程度">
                         <el-option label="普通" value="normal" />
                         <el-option label="中等" value="medium" />
                         <el-option label="紧急" value="urgent" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="选择处理方式" :label-width="formLabelWidth">
-                    <el-select v-model="form.type" placeholder="选择处理方式">
+                    <el-select v-model="form.handling_method" placeholder="选择处理方式">
                         <el-option label="自动任务" value="1" />
                         <el-option label="人工处理" value="2" />
                     </el-select>
@@ -123,8 +123,8 @@ onMounted(() => {
 
 //搜索产品
 const formsearch = reactive({
-    product_name: '',
-    type: '',
+    access_key_num: 0,
+    target_product: '',
     date: '',
     currentPage: 1,
     pageSize: 10,
@@ -175,38 +175,20 @@ const getStockAccessKeyList = async () => {
 
 //添加库存卡密数据
 const dialogFormVisible = ref(false)
-const fileRaw = ref(null)
 const form = reactive({
-    product_id: 0,
-    access_key: '',
-    status: 0,
-    used_from_platform_name: '',
-    used_from_platform_order_id: '',
-    used_ip: '',
+    access_key_num:0,
+    target_product: 0,
+    access_key_bit: 32,
+    task_level: 'normal',
+    handling_method: 1,
 })
 
-const handleChange = (uploadFile) => {
-    fileRaw.value = uploadFile.raw
-}
-
 const submitForm = async () => {
-    if (!fileRaw.value) {
-        ElMessage.warning('请先选择或拖拽需要上传的压缩包')
-        return
-    }
     try {
-        const formData = new FormData();
-        formData.append('name', form.name);
-        formData.append('region', form.region);
-        formData.append('version', form.version);
-        formData.append('type', form.type);
-        formData.append('decompress_password', form.decompress_password);
-        formData.append('file', fileRaw.value);
-        const response = await axios.post('/admin/products/add', formData)
+        const response = await axios.post('/admin/stock_access_key/add', form)
         if (response.status === 200) {
             ElMessage.success('提交成功')
             dialogFormVisible.value = false
-            fileRaw.value = null
             getStockAccessKeyList()
         } else {
             ElMessage.error(response.data.message || '提交失败')
