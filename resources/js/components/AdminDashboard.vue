@@ -117,11 +117,11 @@
       <!-- 销售员任务列表 -->
       <div v-if="activeMenuSlug === 'salesperson_task_list'">
         <SalepersonTasks />
+      </div>
 
-        <!-- 异步队列监控 -->
-        <div v-if="activeMenuSlug === 'async_queue_monitoring'">
-
-        </div>
+      <!-- 异步队列监控 -->
+      <div v-if="activeMenuSlug === 'async_queue_monitoring'">
+        <AsyncQueueMonitoring />
       </div>
     </el-col>
 
@@ -146,6 +146,7 @@ import StockAccessKey from './StockAccessKey.vue'
 import RequireIssuesReport from './RequireIssuesReport.vue'
 import DeveloperTask from './DeveloperTask.vue'
 import SalepersonTasks from './SalepersonTasks.vue'
+import AsyncQueueMonitoring from './AsyncQueueMonitoring.vue'
 const menuList = ref([])
 
 const activeMenuSlug = ref('menu_manager') // 默认死锁在菜单管理

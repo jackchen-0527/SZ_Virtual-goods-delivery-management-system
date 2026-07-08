@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AsyncQueueMonitoringController;
 use App\Http\Controllers\Admin\DeveloperTaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
@@ -53,4 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // 销售员任务列表
     Route::get('/sale_person_tasks', [SalepersonTasksController::class, 'index'])->name('sale_person_tasks.index');
     Route::get('/sale_person_tasks/list', [SalepersonTasksController::class, 'list'])->name('sale_person_tasks.list');
+    // 异步队列监控
+    Route::get('/async_queue_monitoring', [AsyncQueueMonitoringController::class, 'index'])->name('async_queue_monitoring.index');
+    Route::get('/async_queue_monitoring/list', [AsyncQueueMonitoringController::class, 'list'])->name('async_queue_monitoring.list');
 });
