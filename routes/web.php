@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AsyncQueueMonitoringController;
 use App\Http\Controllers\Admin\DeveloperTaskController;
+use App\Http\Controllers\Admin\OnlineCustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RequireIssuesReportController;
@@ -57,4 +58,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // 异步队列监控
     Route::get('/async_queue_monitoring', [AsyncQueueMonitoringController::class, 'index'])->name('async_queue_monitoring.index');
     Route::get('/async_queue_monitoring/list', [AsyncQueueMonitoringController::class, 'list'])->name('async_queue_monitoring.list');
+    // 在线客服
+    Route::get('/online_customer', [OnlineCustomerController::class, 'index'])->name('index');
+    Route::post('/online_customer/send', [OnlineCustomerController::class, 'send'])->name('online_customer.send');
+    Route::post('/online_customer/reveice', [OnlineCustomerController::class, 'reveice'])->name('online_customer.reveice');
 });

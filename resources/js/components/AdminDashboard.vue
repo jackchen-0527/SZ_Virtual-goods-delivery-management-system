@@ -123,6 +123,11 @@
       <div v-if="activeMenuSlug === 'async_queue_monitoring'">
         <AsyncQueueMonitoring />
       </div>
+      <!-- 在线客服 -->
+      <div v-if="activeMenuSlug === 'online_customer_service'">
+        <OnlineCustomer />
+      </div>
+
     </el-col>
 
   </el-row>
@@ -147,6 +152,7 @@ import RequireIssuesReport from './RequireIssuesReport.vue'
 import DeveloperTask from './DeveloperTask.vue'
 import SalepersonTasks from './SalepersonTasks.vue'
 import AsyncQueueMonitoring from './AsyncQueueMonitoring.vue'
+import OnlineCustomer from './OnlineCustomer.vue'
 const menuList = ref([])
 
 const activeMenuSlug = ref('menu_manager') // 默认死锁在菜单管理
